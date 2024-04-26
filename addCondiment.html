@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coffee Shop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const beverageType = urlParams.get('type');
+    console.log('Selected Beverage Type:', beverageType);
+</script>
+<div class="header">
+    <a class="header-left" href="selectBeverage.html">Coffee Order System</a>
+    <div class="header-right">
+        <a className="loginLink" href="login.html">Login </a>
+        <a href="orderStatus.html">Order Status</a>
+    </div>
+</div>
+<div class="centerScreenDivided">
+    <div class="centerLeft">
+        <div class="selectCondiments">Add the Condiments</div>
+        <div class="condimentButtons">
+            <button class="condimentButton" onclick="addCondiment('Milk')">Milk</button>
+            <button class="condimentButton" onclick="addCondiment('Mocha')">Mocha</button>
+            <button class="condimentButton" onclick="addCondiment('Soy')">Soy</button>
+            <button class="condimentButton" onclick="addCondiment('Whip')">Whip</button>
+        </div>
+    </div>
+    <div class="centerRight">
+        <div class="orderStatus">
+            <div id="myOrder">
+                <div class="orderTitle">My Order</div>
+                <div id="selectedBeverage" class="selBev">Selected Beverage: <span id="beverageName"></span></div>
+                <div id="condimentsList" class="orderItem"></div>
+                <button class="confirmOrderButton" onclick="confirmOrder()">Confirm Order</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const selectedBeverageEl = document.getElementById('beverageName');
+    const condimentsListEl = document.getElementById('condimentsList');
+    const condiments = [];
+
+    selectedBeverageEl.textContent = beverageType;
+
+    // let host = "http://localhost:63342"
+    function addCondiment(condimentName) {
+        if (condiments.length < 4 && !condiments.includes(condimentName)) {
+            condiments.push(condimentName);
+            updateCondimentsList();
+            console.log(`Added ${condimentName} to ${beverageType}.`);
+        }
+    }
+
+
+    function removeCondiment(index) {
+        condiments.splice(index, 1);
+        updateCondimentsList();
+        console.log(`Removed a condiment.`);
+    }
+
+    function updateCondimentsList() {
+        condimentsListEl.innerHTML = "";
+        condiments.forEach((condiment, index) => {
+            const condimentItem = document.createElement('div');
+            condimentItem.className = 'condimentItem';
+            condimentItem.textContent = condiment;
+            condimentItem.onclick = () => removeCondiment(index);
+            condimentsListEl.appendChild(condimentItem);
+        });
+    }
+
+    async function confirmOrder() {
+        // let host = "https://coffee-order-latest-luvi.onrender.com";
+        let host = "http://localhost:8080";
+
+        var toppings = document.getElementById('condimentsList').getElementsByClassName('condimentItem');
+        console.log(toppings[0].textContent);
+
+        let condiments = [];
+        for(let i = 0; i < toppings.length; i++) {
+            condiments.push(toppings[i].textContent);
+        }
+        console.log(condiments);
+
+        let order = {
+            beverageType: selectedBeverageEl.textContent,
+            condiments: condiments
+        }
+
+        let request = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(order)
+        };
+
+        let response = await fetch(host + "/orders", request);
+
+        let receipt = await response.json();
+        console.log(receipt);
+
+        window.location.href = 'orderPlaced.html?orderID=' + receipt.id + '&description=' + receipt.description + '&total=' + receipt.cost;
+    }
+
+</script>
+</body>
+</html>

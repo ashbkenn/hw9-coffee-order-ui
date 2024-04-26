@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Confirmation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="header">
+    <a class="header-left" href="selectBeverage.html">Coffee Order System</a>
+    <div class="header-right">
+        <a className="loginLink" href="login.html">Login </a>
+        <a href="orderStatus.html">Order Status</a>
+    </div>
+</div>
+<div class="orderConfirmation">
+    <h1>Order Placed:</h1>
+    <p>Order id: <span id="orderId"></span></p>
+    <p><span id="orderDetails"></span></p>
+    <p>Total: <span id="orderTotal"></span></p>
+</div>
+<script>
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderId = urlParams.get('orderId') || 'N/A';
+        const details = decodeURIComponent(urlParams.get('details')) || 'N/A';
+        const total = '$' + (urlParams.get('total') || 'N/A');
+
+        document.getElementById('orderId').textContent = orderId;
+        document.getElementById('orderDetails').textContent = details;
+        document.getElementById('orderTotal').textContent = total;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coffee Shop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <a class="header-left" href="selectBeverage.html">Coffee Order System</a>
+        <div class="header-right">
+            <a className="loginLink" href="login.html">Login </a>
+            <a href="orderStatus.html">Order Status</a>
+        </div>
+    </div>
+    <div class="centerScreen">
+        <div class="selectBeverage">Select the beverage</div>
+        <div class="beverageButtons">
+            <button class="beverageButton" onclick="navigateTo('addCondiment.html', 'Dark Roast')">Dark Roast</button>
+            <button class="beverageButton" onclick="navigateTo('addCondiment.html', 'Espresso')">Espresso</button>
+            <button class="beverageButton" onclick="navigateTo('addCondiment.html', 'House Blend')">House Blend</button>
+            <button class="beverageButton" onclick="navigateTo('addCondiment.html', 'Decaf')">Decaf</button>
+        </div>
+    </div>
+    <script>
+        function navigateTo(url, beverageType) {
+            window.location.href = `${url}?type=${beverageType}`;
+        }
+    </script>
+</body>
+</html>
