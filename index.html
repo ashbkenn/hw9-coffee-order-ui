@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="styles.css">
+<head>
+    <style>
+        * {
+            font-family: verdana;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        .title {
+            color: brown;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .login a {
+            color: brown;
+            text-decoration: none; 
+            cursor: pointer;
+        }
+
+        .order-status a {
+            color: black;
+            text-decoration: none; 
+            cursor: pointer;
+        }
+
+        .start-order-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; 
+        }
+
+        .start-order-btn {
+            background-color: #d2a16f; 
+            padding: 15px 30px; 
+            border: none;
+            color: black;
+            font-size: 18px;
+            text-decoration: none;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+</head>
+<body>
+    
+    <div class="header">
+        <a class="header-left" href="selectBeverage.html">Coffee Order System</a>
+        <div class="header-right">
+            <a className="loginLink" href="login.html">Login </a>
+            <a href="orderStatus.html">Order Status</a>
+        </div>
+      </div>
+    
+    <div class="start-order-btn-container">
+        <a href="selectBeverage.html" class="start-order-btn">Start the order here</a>
+    </div>
+</body>
+</html>
